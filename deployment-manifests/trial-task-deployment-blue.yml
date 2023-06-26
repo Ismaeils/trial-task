@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: trial-task-api
+  name: trial-task-api-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: trial-task-api
+      version: "blue"
+  template:
+    metadata:
+      labels:
+        run: trial-task-api
+        version: "blue"
+    spec:
+      containers:
+        - env:
+            - name: REDIS_URL
+              value: redis://redis:6379
+          name: trial-task-api
+          image: trial-task-api:blue.DEPLOYMENT_VERSION
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
