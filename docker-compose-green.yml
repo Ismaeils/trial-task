@@ -1,6 +1,14 @@
 version: "3.8"
 
 services: 
+  postgres:
+    image: postgres:latest
+    container_name: trial-task
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/trial_task
+    ports:
+      - "5432:5432"
+  
   redis: 
     image: redis:alpine
     ports: 
