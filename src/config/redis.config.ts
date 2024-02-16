@@ -1,4 +1,4 @@
-import redis, {createClient} from 'redis';
+import redis, {RedisClientType, createClient} from 'redis';
 
 const clients: any = {};
 
@@ -34,6 +34,6 @@ export async function initRedis() {
     instanceEventListeners({ conn: cacheInstance });
 };
 
-export function getRedisClient() {
+export function getRedisClient(): RedisClientType {
     return clients.cacheInstance;
 }
