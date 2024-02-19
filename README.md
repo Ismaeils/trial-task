@@ -32,15 +32,11 @@ Main tools used to achieve this:
 
 ## How to run this
 
-#### You have to have `minikube` and `docker` installed
-
-- You have to make sure that minikube is started `minikube start`
-- `eval $(minikube docker-env)` You've to use this statement before doing any work on the terminal. This works by the lifetime of the terminal, if you opened new one, execute this statement before you do any work
+#### You have to have `docker` and `docker-compose` installed
 - if you have never run this app before, execute `sh deploy-first-time.sh` script
 
 #### For usual updating of the app code base:
 
-- set a unique version number `export DEPLOYMENT_VERSION=0.0.8` for example. See `deployment-history.txt` in order to check the latest and increament on it. This env var has to be unique.
-- execute `sh redeploy-switch-traffic.sh` script. This script will rebuild the docker image, find which version to deploy to (blue or green) and then update the service to point to the active deployment.
-- Also, this `redeploy-switch-traffic.sh` script will start `minikube tunnel`, which is necessary in order to make the load balancer accessible on the local machine.
-- Voila, the app will be accessible on 127.0.0.1:3000
+- set a unique version number and run the command in terminal like this `export DEPLOYMENT_VERSION=0.0.8` for example. See `deployment-history.txt` in order to check the latest and increament on it. This env var has to be unique.
+- execute `sh redeploy-switch-traffic.sh` script. This script will rebuild the docker image (only the node app service), find which version to deploy to (blue or green) and then update the service to point to the active deployment.
+- Voila, the app will be accessible on localhost:3000

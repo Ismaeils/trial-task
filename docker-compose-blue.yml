@@ -3,9 +3,9 @@ version: "3.8"
 services: 
   postgres:
     image: postgres:latest
-    container_name: trial-task
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/trial_task
+    container_name: trial-task-postgres
+    env_file:
+      - .env.docker
     ports:
       - "5432:5432"
   redis: 
@@ -23,10 +23,12 @@ services:
     image: trial-task-api:blue.${DEPLOYMENT_VERSION}
     ports: 
       - "3000:3000"
-    environment:
-      REDIS_URL: redis://redis:6379
+    env_file:
+      - .env.docker
+    command: sh init.sh
     depends_on: 
       - redis 
+      - postgres
 
 volumes:
   trial-task:
